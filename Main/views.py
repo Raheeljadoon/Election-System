@@ -19,31 +19,32 @@ def elections(request):
 
 def updates_votes(request):
 
+    form = ElectionForms(request.POST)
+    votes = Votes.objects.all().first()
+
     if request.method == 'POST':
 
-        form = ElectionForms(request.POST)
-        form_candidate = CandidateForm(request.POST)
+        if form.is_valid():
 
-        if form:
-            if form.is_valid():
-                form.save()
-        elif form_candidate:
-            if form_candidate.is_valid():
-                form_candidate.save()
-        
+            # form.save()
+            print(form)
+            no_of_votes = Votes.objects.filter(candidate_name=int(form.data['candidate_name'])).first().no_of_votes
 
-    else:
-        form = ElectionForms()
-        form_candidate = CandidateForm()
+            after_addition = no_of_votes + int(form.data['no_of_votes']) 
 
-    return render(request, 'election/index.html', {'form': form, 'formscandidate': form_candidate})
+
+            update_votes = Votes.objects.filter(candidate_name=form.data['candidate_name']).update(no_of_votes=after_addition)
+            print(update_votes)
+
+
+    return render(request, 'election/index.html', {'form': form})
 
 
 def register(request):
 
     form_candidate = CandidateForm(request.POST)
     if request.method == 'POST':
-        
+
         if form_candidate.is_valid():
             form_candidate.save()
 
