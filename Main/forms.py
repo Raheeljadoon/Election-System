@@ -22,4 +22,3 @@ class CandidateForm(ModelForm):
         fields = '__all__'
        
 
-        

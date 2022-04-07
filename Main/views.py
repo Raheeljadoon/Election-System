@@ -18,16 +18,23 @@ def elections(request):
 
 
 def updates_votes(request):
+    namelist = []
+    candidate_vote = []
 
     form = ElectionForms(request.POST)
-    votes = Votes.objects.all().first()
+    total_votes = Votes.objects.all()
+    for name in total_votes :
+
+        namelist.append(name.candidate_name.name)
+        candidate_vote.append(name.no_of_votes)
+        # candidate_vote = name.no_of_votes
+
 
     if request.method == 'POST':
 
-        if form.is_valid():
+        # total_votes = Votes.objects.all()
 
-            # form.save()
-            print(form)
+        try:
             no_of_votes = Votes.objects.filter(candidate_name=int(form.data['candidate_name'])).first().no_of_votes
 
             after_addition = no_of_votes + int(form.data['no_of_votes']) 
@@ -35,9 +42,10 @@ def updates_votes(request):
 
             update_votes = Votes.objects.filter(candidate_name=form.data['candidate_name']).update(no_of_votes=after_addition)
             print(update_votes)
+        except Exception as ex:
+            print(ex)
 
-
-    return render(request, 'election/index.html', {'form': form})
+    return render(request, 'election/index.html', {'form': form,'total_votes':total_votes,"namelist":namelist,"canditate_vote":candidate_vote})
 
 
 def register(request):
