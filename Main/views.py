@@ -57,3 +57,29 @@ def register(request):
             form_candidate.save()
 
     return render(request, 'election/register.html', {'formscandidate': form_candidate})
+
+
+def submit(request):
+
+    print("yes i am here")
+    if request.method == 'POST':
+        print(request.POST)
+        candidate_name = request.POST['candidate_name']
+        votes = request.POST['votes']
+
+        # total_votes = Votes.objects.all()
+
+        try:
+            candidate_id = Candidates.objects.filter(name=candidate_name).first().id
+            
+            no_of_votes = Votes.objects.filter(candidate_name=int(candidate_id)).first().no_of_votes
+
+            after_addition = no_of_votes + int(votes) 
+
+
+            update_votes = Votes.objects.filter(candidate_name=int(candidate_id)).update(no_of_votes=after_addition)
+            print(update_votes)
+        except Exception as ex:
+            print(ex)
+
+    return render(request,'election/index.html') 

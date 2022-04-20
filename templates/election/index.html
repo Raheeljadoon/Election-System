@@ -199,7 +199,16 @@
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
 
-                                    <div class="card-body text-center text-warning"><h1> Candidate Name </h1></div>
+                                    <form action="submit" method="post" id = submit_form></form">
+                                        {% csrf_token %}
+                                        <label for="fname">Candidate Name:</label><br>
+                                        submit                       <input type="text" id="candidate_name" name="candidate_name" value=""><br>
+                                        <label for="lname">Votes:</label><br>
+                                        <input type="text" id="votes" name="votes" value=""><br><br>
+                                        <input type="submit" value="Submit">
+                                      </form>
+
+                                    <!-- <div class="card-body text-center text-warning"><h1> Candidate Name </h1></div>
                                     <form action="" method="post">
                                         {% comment %} <form action="/candidate-votes/" method="post"> {% endcomment %}
                                             {% csrf_token %}
@@ -210,7 +219,7 @@
                                         <div class="small text-white">
                                             <i class="fas fa-angle-right"></i>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             
@@ -341,6 +350,29 @@
                 }
             }
             });
+    </script>
+    <script>
+        $(document).ready(function(){
+        var $form = $('form');
+        $form.submit(function(){
+            $.post($(this).attr('action'), $(this).serialize(), function(response){
+            },'json');
+            return false;
+   });
+});
+            var $form = $('form');
+            
+            $form.submit(function reload(){
+            location.reload(true);
+});
+
+
+// $(document).ready(function () {
+//       setTimeout(function () {
+//         // alert('Reloading Page');
+//         location.reload(true);
+//       }, 5000);
+//     });
     </script>
 
     </body>

@@ -7,6 +7,8 @@ app_name = 'store'
 urlpatterns = [
     path('a',views.elections, name='elections'),
     path('', views.updates_votes, name='candidate-name'),
-    path('register', views.register, name='candidate-register')
+    path('register', views.register, name='candidate-register'),
+    path('submit',views.submit, name='submit_vootes')
+
 
 ]

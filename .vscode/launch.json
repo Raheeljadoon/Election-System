@@ -15,7 +15,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
-            "python": "/home/kamal/Documents/Practise/election_system/venv/bin/python",
+            "python": "/home/rapidev/Documents/personal_practise/venv/bin/python",
             // "port" :   "8005",
 
             "args": [
